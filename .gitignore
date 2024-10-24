@@ -311,3 +311,6 @@ _region_*
 
 # Ignore vscode settings
 .vscode/
+
+template/
+*.bak*
