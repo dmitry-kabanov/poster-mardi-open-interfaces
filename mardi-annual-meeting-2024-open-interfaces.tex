@@ -42,8 +42,24 @@ We develop \OIF{} to improve interoperability of scientific software.
   scientific-computing community to program against these interfaces.
 \end{objectives}
 
-\section*{Architecture}
+\section*{Software Architecture and Data Flow}
 \includegraphics[width=\columnwidth]{arch.png}
+
+\textbf{User} requests an implementation of an Open Interface
+and interacts with the implementation only via a \textbf{Gateway},
+so that the discrepancies between different implementations in terms
+of functions signatures and order of invocation become transparent
+to the \textbf{User}.
+
+The function arguments are converted from the user's language
+to a C intermediate representation inside a \textbf{Converter}
+that passes them further.
+The \textbf{Dispatch} is responsible for loading an implementation
+and its corresponding runtime (\textbf{Bridge}).
+The \textbf{Bridge} converts data from the intermediate representation
+to the native data types of the implementation and invokes
+the requested function, which also occurs via \textbf{Interface},
+that is, the implementation is invoked via an adapter.
 
 \newpage
 
