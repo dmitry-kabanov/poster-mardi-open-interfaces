@@ -314,3 +314,4 @@ _region_*
 
 template/
 *.bak*
+.auctex-auto/
