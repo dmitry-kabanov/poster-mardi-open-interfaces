@@ -10,6 +10,4 @@ $pdf_mode = 1;
 # to get a different engine. Check if this works with `latexmk --commands`.
 set_tex_cmds("--shell-escape --synctex=1 %O %S");
 
-@default_files = ("main.tex");
-
 $clean_ext = ("run.xml pytxcode");
