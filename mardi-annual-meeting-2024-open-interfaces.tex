@@ -7,12 +7,14 @@
 \usepackage{blindtext}
 \usepackage{tikz}
 \usepackage{amsmath}
+\usepackage{derivative}
 \usepackage{hyperref}
 \hypersetup{
 	colorlinks,
 	citecolor=black,
 	urlcolor=CEmphasis1,
 }
+\usepackage{minted}
 
 \title{Improving Interoperability\\in Scientific Computing\\via MaRDI Open Interfaces}
 \authors{Contributors:
@@ -79,7 +81,47 @@ that is, the implementation is invoked via an adapter.
 \newpage
 
 \section*{Example usage}
-\lipsum[2]
+Inviscid Burgers' equation:
+\begin{align*}
+  &\pdv{u}{t} + \pdv{\left( u^{2} / 2 \right)}{x} = 0,
+  \quad t \in [0, 2], \quad x \in [0, 2] \\
+  &u(t, 0) = 0.5 - 0.25 \sin \left( \pi x \right)\\
+  &u(t, 0) = u(t, 2)
+\end{align*}
+\begin{minipage}{\dimexpr0.46\columnwidth - 2\tabcolsep}
+  \textbf{Implementations}:
+  \begin{itemize}
+    \item Sundials CVODE,\\Adams--Moulton method
+    \item \texttt{scipy.integrate.ode},\\Dormand--Prince method
+    \item \texttt{OrdinaryDiffEq},\\Tsitouras method
+  \end{itemize}
+\end{minipage}\hfill%
+\begin{minipage}{\dimexpr0.54\columnwidth - 2\tabcolsep}
+  % \centering
+  \includegraphics[width=\linewidth]{ivp_c_burgers_eq}
+\end{minipage}
+
+\vspace{2em}
+\textbf{User code in Python:}
+\begin{minted}[autogobble, beameroverlays, escapeinside=||]{Python}
+  from oif.interfaces.ivp import IVP
+  ...
+
+  # `BurgersEquationProblem` is a utility user class.
+  impl = "scipy_ode"
+  problem = BurgersEquationProblem(N=1001)
+  s = IVP(impl)
+  s.set_initial_value(problem.y0, problem.t0)
+  s.set_rhs_fn(problem.compute_rhs)
+
+  times = np.linspace(problem.t0, problem.tfinal, num=11)
+
+  soln = [y0]
+  for t in times[1:]:
+      s.integrate(t)
+      soln.append(s.y)
+\end{minted}
+
 
 \section*{Conclusions}
 \lipsum[3]
