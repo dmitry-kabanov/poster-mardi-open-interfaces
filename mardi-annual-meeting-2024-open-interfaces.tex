@@ -28,8 +28,20 @@
 
 \graphicspath{{./assets/}}
 
+\usepackage[natbib=true, style=authoryear, giveninits=true, uniquename=init]{biblatex}
+% While editing, it is convenient to use an external BIB file,
+% which is, nevertheless, is not commited to the Git repository.
+% To extract only used citations and put them to `bibliography`,
+% use this command in the terminal:
+% jabref --nogui --aux main.aux,bibliography.bib bibliography-external.bib
+\IfFileExists{./bibliography-external.bib}{%
+	\addbibresource{bibliography-external.bib}
+}{%
+	\addbibresource{bibliography.bib}
+}
+
+
 \begin{document}
-\bibliographystyle{plain}
 
 \maketitle
 
@@ -50,17 +62,24 @@ to another, in the flow of the computational project.
 
 The goal of \OIF{} is to improve interoperability in Scientific
 Computing by alleviating these obstacles.
+Similar to software packages such as \textsc{PyMOR}~\citep{Milk2016},
+\textsc{SUNDIALS}~\citep{GardnerEtAl2022},
+or \textsc{PreCICE}~\citep{Chourdakis2022},
+we aim to abstract out discrepancies between
+different solvers, so that computational scientists would spend less time
+on connecting them together.
 
-\begin{objectives}
+Our \textbf{objectives} during the project are:
+\begin{itemize}
   \item Develop library that passes data between languages automatically
-  \item Develop Open Interfaces for typical numerical problems,
+  \item Develop generic interfaces for typical numerical problems,
   such as optimization or integration of differential equations
-  \item Spread information about Open Interfaces to encourage
-  scientific-computing community to program against these interfaces.
-\end{objectives}
+  \item Spread information about these interfaces to encourage
+  the scientific-computing community to program against these interfaces.
+\end{itemize}
 
 \section*{Software Architecture and Data Flow}
-\includegraphics[width=\columnwidth]{arch.png}
+\includegraphics[width=\columnwidth]{arch}
 
 \textbf{User} requests an implementation of an Open Interface
 and interacts with the implementation only via a \textbf{Gateway},
@@ -156,17 +175,19 @@ the German Research Foundation,
 Germany's Excellence Strategy EXC~2044-390685587,
 ``Mathematics Münster: Dynamics--Geometry--Structure''.
 
-\begin{thebibliography}{1}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{1.5pt}
+\printbibliography{}
 
-  \scriptsize{
+% \begin{thebibliography}{1}
+%   \setlength{\itemsep}{1pt}
+%   \setlength{\parskip}{1.5pt}
 
-  \bibitem[1]{PyMOR}
-  Ren{\'{e}}, M., Rave, S., and Schindler, F.
-  \newblock pyMOR -- Generic Algorithms and Interfaces for Model Order Reduction, 2016.
-  \newblock doi:10.1137/15m1026614.
-  }
-\end{thebibliography}
+%   \scriptsize{
+
+%   \bibitem[1]{PyMOR}
+%   Ren{\'{e}}, M., Rave, S., and Schindler, F.
+%   \newblock pyMOR -- Generic Algorithms and Interfaces for Model Order Reduction, 2016.
+%   \newblock doi:10.1137/15m1026614.
+%   }
+% \end{thebibliography}
 
 \end{document}
