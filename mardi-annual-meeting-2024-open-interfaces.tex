@@ -1,4 +1,4 @@
-\documentclass[a0paper, twocolumn, csc, english]{mpi2015_poster}
+\documentclass[a0paper, twocolumn, csc, english, final]{mpi2015_poster}
 
 \definecolor{clustercassis} {cmyk}{0.30, 1.00, 0.00, 0.05}
 \definecolor{clusterblue} {cmyk}{1.00, 0.00, 0.10, 0.00}
@@ -14,15 +14,17 @@
 \hypersetup{
 	colorlinks,
 	citecolor=black,
-	urlcolor=CEmphasis1,
+	urlcolor=MPIblue,
 }
 \usepackage{minted}
 
+\usepackage{newtxsf}
+
 \title{Improving Interoperability in Scientific Computing\\via MaRDI Open Interfaces}
-\author[1]{Dmitry I.\ Kabanov}
-\author[1]{Stephan Rave}
-\author[1]{Mario Ohlberger}
-\affil[1]{Institute for Analysis and Numerics, University of M\"{u}nster, M\"{u}nster, Germany}
+\author{Dmitry I.\ Kabanov}
+\author{Stephan Rave}
+\author{Mario Ohlberger}
+\affil{Institute for Analysis and Numerics, University of Münster, Münster, Germany}
 
 \newcommand{\OIF}{\textsc{MaRDI Open Interfaces}\xspace}
 
@@ -48,138 +50,142 @@
 
 \begin{document}
 \begin{poster}
-\begin{pcolumn}
+  \begin{pcolumn}
+      \makesection{Summary}
+    \begin{pbox}
+      \large
+      Computational scientists often face two obstacles while conducting
+      numerical experiments.
+      First, there are several popular languages used by numerical
+      software packages as well as different preferences for a ``driving''
+      language, in which an experiment's logic is formulated.
+      Connecting different languages and packages directly requires
+      developing bindings to for these packages, which can amount
+      to a significant work.
+      Second, the programming interfaces between even packages
+      that solve the same numerical problem, have different interfaces.
+      Therefore, it requires a significant effort from a computational
+      scientist, if there is a need to switch from one numerical package
+      to another, in the flow of the computational project.
 
-\makesection{Summary}
-Computational scientists often face two obstacles while conducting
-numerical experiments.
-First, there are several popular languages used by numerical
-software packages as well as different preferences for a ``driving''
-language, in which an experiment's logic is formulated.
-Connecting different languages and packages directly requires
-developing bindings to for these packages, which can amount
-to a significant work.
-Second, the programming interfaces between even packages
-that solve the same numerical problem, have different interfaces.
-Therefore, it requires a significant effort from a computational
-scientist, if there is a need to switch from one numerical package
-to another, in the flow of the computational project.
+      The goal of \OIF{} is to improve interoperability in Scientific
+      Computing by alleviating these obstacles.
+      Similar to software packages such as \textsc{PyMOR}~\citep{Milk2016},
+      \textsc{SUNDIALS}~\citep{GardnerEtAl2022},
+      or \textsc{PreCICE}~\citep{Chourdakis2022},
+      we aim to abstract out discrepancies between
+      different solvers, so that computational scientists would spend less time
+      on connecting them together.
 
-The goal of \OIF{} is to improve interoperability in Scientific
-Computing by alleviating these obstacles.
-Similar to software packages such as \textsc{PyMOR}~\citep{Milk2016},
-\textsc{SUNDIALS}~\citep{GardnerEtAl2022},
-or \textsc{PreCICE}~\citep{Chourdakis2022},
-we aim to abstract out discrepancies between
-different solvers, so that computational scientists would spend less time
-on connecting them together.
+      Our \textbf{objectives} during the project are:
+      \begin{itemize}
+        \item Develop library that passes data between languages automatically
+        \item Develop generic interfaces for typical numerical problems,
+              such as optimization or integration of differential equations
+        \item Spread information about these interfaces to encourage
+              the scientific-computing community to program against these interfaces.
+      \end{itemize}
+    \end{pbox}
 
-Our \textbf{objectives} during the project are:
-\begin{itemize}
-  \item Develop library that passes data between languages automatically
-  \item Develop generic interfaces for typical numerical problems,
-  such as optimization or integration of differential equations
-  \item Spread information about these interfaces to encourage
-  the scientific-computing community to program against these interfaces.
-\end{itemize}
+    \makesection{Software Architecture and Data Flow}
+    \begin{pbox}
+      \large
+      \includegraphics[width=\columnwidth]{arch}
 
-\makesection{Software Architecture and Data Flow}
-\includegraphics[width=\columnwidth]{arch}
+      \textbf{User} requests an implementation of an Open Interface
+      and interacts with the implementation only via a \textbf{Gateway},
+      so that the discrepancies between different implementations in terms
+      of functions signatures and order of invocation become transparent
+      to the \textbf{User}.
 
-\textbf{User} requests an implementation of an Open Interface
-and interacts with the implementation only via a \textbf{Gateway},
-so that the discrepancies between different implementations in terms
-of functions signatures and order of invocation become transparent
-to the \textbf{User}.
+      The function arguments are converted from the user's language
+      to a C intermediate representation inside a \textbf{Converter}
+      that passes them further.
+      The \textbf{Dispatch} is responsible for loading an implementation
+      and its corresponding runtime (\textbf{Bridge}).
+      The \textbf{Bridge} converts data from the intermediate representation
+      to the native data types of the implementation and invokes
+      the requested function, which also occurs via \textbf{Interface},
+      that is, the implementation is invoked via an adapter.
+    \end{pbox}
+      \makesection{Acknowledgments}
+    \begin{pbox}
+      \large
+      The authors would like to thank for the provided funding
+      the National Research Data Infrastructure,
+      project number~460135501, NFDI~29/1 “MaRDI – Mathematical
+      Research Data Initiative”
+      and
+      the German Research Foundation,
+      Germany's Excellence Strategy EXC~2044-390685587,
+      ``Mathematics Münster: Dynamics--Geometry--Structure''.
+    \end{pbox}
+  \end{pcolumn}
+  % Right column.
+  \begin{pcolumn}
+    \makesection{Example usage}
+    \begin{pbox}
+      \large
+      Inviscid Burgers' equation:
+      \begin{align*}
+         & \pdv{u}{t} + \pdv{\left( u^{2} / 2 \right)}{x} = 0,
+        \quad t \in [0, 2], \quad x \in [0, 2]                 \\
+         & u(t, 0) = 0.5 - 0.25 \sin \left( \pi x \right)      \\
+         & u(t, 0) = u(t, 2)
+      \end{align*}
+      \begin{minipage}{\dimexpr0.46\columnwidth - 2\tabcolsep}
+        \textbf{Implementations}:
+        \begin{itemize}
+          \item Sundials CVODE,\\Adams--Moulton method
+          \item \texttt{scipy.integrate.ode},\\Dormand--Prince method
+          \item \texttt{OrdinaryDiffEq},\\Tsitouras method
+        \end{itemize}
+      \end{minipage}\hfill%
+      \begin{minipage}{\dimexpr0.54\columnwidth - 2\tabcolsep}
+        % \centering
+        \includegraphics[width=\linewidth]{ivp_c_burgers_eq}
+      \end{minipage}
 
-The function arguments are converted from the user's language
-to a C intermediate representation inside a \textbf{Converter}
-that passes them further.
-The \textbf{Dispatch} is responsible for loading an implementation
-and its corresponding runtime (\textbf{Bridge}).
-The \textbf{Bridge} converts data from the intermediate representation
-to the native data types of the implementation and invokes
-the requested function, which also occurs via \textbf{Interface},
-that is, the implementation is invoked via an adapter.
-\end{pcolumn}
-\begin{pcolumn}
-\makesection{Example usage}
-Inviscid Burgers' equation:
-\begin{align*}
-  &\pdv{u}{t} + \pdv{\left( u^{2} / 2 \right)}{x} = 0,
-  \quad t \in [0, 2], \quad x \in [0, 2] \\
-  &u(t, 0) = 0.5 - 0.25 \sin \left( \pi x \right)\\
-  &u(t, 0) = u(t, 2)
-\end{align*}
-\begin{minipage}{\dimexpr0.46\columnwidth - 2\tabcolsep}
-  \textbf{Implementations}:
-  \begin{itemize}
-    \item Sundials CVODE,\\Adams--Moulton method
-    \item \texttt{scipy.integrate.ode},\\Dormand--Prince method
-    \item \texttt{OrdinaryDiffEq},\\Tsitouras method
-  \end{itemize}
-\end{minipage}\hfill%
-\begin{minipage}{\dimexpr0.54\columnwidth - 2\tabcolsep}
-  % \centering
-  \includegraphics[width=\linewidth]{ivp_c_burgers_eq}
-\end{minipage}
+      \vspace{2em}
+      \textbf{User code in Python:}
+      \begin{minted}[autogobble, beameroverlays, escapeinside=||]{Python}
+        from oif.interfaces.ivp import IVP
+        ...
 
-\vspace{2em}
-\textbf{User code in Python:}
-\begin{minted}[autogobble, beameroverlays, escapeinside=||]{Python}
-  from oif.interfaces.ivp import IVP
-  ...
+        # `BurgersEquationProblem` is a utility user class.
+        impl = "scipy_ode"
+        problem = BurgersEquationProblem(N=1001)
+        s = IVP(impl)
+        s.set_initial_value(problem.y0, problem.t0)
+        s.set_rhs_fn(problem.compute_rhs)
 
-  # `BurgersEquationProblem` is a utility user class.
-  impl = "scipy_ode"
-  problem = BurgersEquationProblem(N=1001)
-  s = IVP(impl)
-  s.set_initial_value(problem.y0, problem.t0)
-  s.set_rhs_fn(problem.compute_rhs)
+        times = np.linspace(problem.t0, problem.tfinal, num=11)
 
-  times = np.linspace(problem.t0, problem.tfinal, num=11)
-
-  soln = [y0]
-  for t in times[1:]:
-      s.integrate(t)
-      soln.append(s.y)
-\end{minted}
-
-
-\makesection{Conclusions}
-We demonstrated how \OIF{} can be used to improve
-interoperability in Scientific Computing.
-Using this software package, computational scientists can connect numerical
-solvers written in different languages, without explicitly writing bindings
-to these solvers.
-Besides, the library allows switching between different implementations
-of a numerical problem without extensive modifications of a user's code,
-that facilitates benchmarking numerical software in terms of performance
-and obtained results.
-
-
-% \section*{Connections to other MaRDI subprojects}
-
-% \begin{itemize}[align=left]
-%   \item[\color{CEmphasis1}M1.4:] ``Predefined Software Environments'' subproject
-%         helps scientists with reproducibility by making it easier to have
-%         a set of installed numerical packages.
-%   \item[\color{CEmphasis1}M2.3:] ``Benchmark Framework'' subproject
-%         compares numerical software packages, which can be facilitated
-%         using \OIF{}.
-% \end{itemize}
-
-\makesection{Acknowledgments}
-The authors would like to thank for the provided funding
-the National Research Data Infrastructure,
-project number~460135501, NFDI~29/1 “MaRDI – Mathematical
-Research Data Initiative”
-and
-the German Research Foundation,
-Germany's Excellence Strategy EXC~2044-390685587,
-``Mathematics Münster: Dynamics--Geometry--Structure''.
-
-% \printbibliography{}
-\end{pcolumn}
+        soln = [y0]
+        for t in times[1:]:
+            s.integrate(t)
+            soln.append(s.y)
+      \end{minted}
+    \end{pbox}
+    \makesection{Conclusions}
+    \begin{pbox}
+      \large
+      We demonstrated how \OIF{} can be used to improve
+      interoperability in Scientific Computing.
+      Using this software package, computational scientists can connect numerical
+      solvers written in different languages, without explicitly writing bindings
+      to these solvers.
+      Besides, the library allows switching between different implementations
+      of a numerical problem without extensive modifications of a user's code,
+      that facilitates benchmarking numerical software in terms of performance
+      and obtained results.
+    \end{pbox}
+    \makesection{Selected References}
+    \begin{pbox}
+      \vspace{1em}
+      \defbibheading{bibliography}{} % Remove default "References" heading.
+      \printbibliography[]
+    \end{pbox}
+  \end{pcolumn}
 \end{poster}
 \end{document}
