@@ -1,5 +1,7 @@
-\documentclass{mmposter}
+\documentclass[a0paper, twocolumn, csc, english]{mpi2015_poster}
 
+\definecolor{clustercassis} {cmyk}{0.30, 1.00, 0.00, 0.05}
+\definecolor{clusterblue} {cmyk}{1.00, 0.00, 0.10, 0.00}
 \colorlet{CEmphasis1}{clustercassis}
 \colorlet{CEmphasis2}{clusterblue}
 
@@ -16,15 +18,13 @@
 }
 \usepackage{minted}
 
-\title{Improving Interoperability\\in Scientific Computing\\via MaRDI Open Interfaces}
-\authors{Contributors:
-	Dmitry I.\ Kabanov, Stephan Rave, Mario Ohlberger
-}
-\renewcommand{\refname}{References}
+\title{Improving Interoperability in Scientific Computing\\via MaRDI Open Interfaces}
+\author[1]{Dmitry I.\ Kabanov}
+\author[1]{Stephan Rave}
+\author[1]{Mario Ohlberger}
+\affil[1]{Institute for Analysis and Numerics, University of M\"{u}nster, M\"{u}nster, Germany}
 
 \newcommand{\OIF}{\textsc{MaRDI Open Interfaces}\xspace}
-
-\newcounter{hilfszaehler}
 
 \graphicspath{{./assets/}}
 
@@ -40,12 +40,17 @@
 	\addbibresource{bibliography.bib}
 }
 
+\partnerlogos{
+  \includegraphics[height=\logoheight]{logos/MaRDI_Logo_L_5_rgba_cropped.png} \hspace{3ex}
+  \includegraphics[height=\logoheight]{logos/poster_wwumlogo_cropped.pdf}
+}
+
 
 \begin{document}
+\begin{poster}
+\begin{pcolumn}
 
-\maketitle
-
-\section*{Summary}
+\makesection{Summary}
 Computational scientists often face two obstacles while conducting
 numerical experiments.
 First, there are several popular languages used by numerical
@@ -78,7 +83,7 @@ Our \textbf{objectives} during the project are:
   the scientific-computing community to program against these interfaces.
 \end{itemize}
 
-\section*{Software Architecture and Data Flow}
+\makesection{Software Architecture and Data Flow}
 \includegraphics[width=\columnwidth]{arch}
 
 \textbf{User} requests an implementation of an Open Interface
@@ -96,10 +101,9 @@ The \textbf{Bridge} converts data from the intermediate representation
 to the native data types of the implementation and invokes
 the requested function, which also occurs via \textbf{Interface},
 that is, the implementation is invoked via an adapter.
-
-\newpage
-
-\section*{Example usage}
+\end{pcolumn}
+\begin{pcolumn}
+\makesection{Example usage}
 Inviscid Burgers' equation:
 \begin{align*}
   &\pdv{u}{t} + \pdv{\left( u^{2} / 2 \right)}{x} = 0,
@@ -142,7 +146,7 @@ Inviscid Burgers' equation:
 \end{minted}
 
 
-\section*{Conclusions}
+\makesection{Conclusions}
 We demonstrated how \OIF{} can be used to improve
 interoperability in Scientific Computing.
 Using this software package, computational scientists can connect numerical
@@ -165,7 +169,7 @@ and obtained results.
 %         using \OIF{}.
 % \end{itemize}
 
-\section*{Acknowledgments}
+\makesection{Acknowledgments}
 The authors would like to thank for the provided funding
 the National Research Data Infrastructure,
 project number~460135501, NFDI~29/1 “MaRDI – Mathematical
@@ -175,19 +179,7 @@ the German Research Foundation,
 Germany's Excellence Strategy EXC~2044-390685587,
 ``Mathematics Münster: Dynamics--Geometry--Structure''.
 
-\printbibliography{}
-
-% \begin{thebibliography}{1}
-%   \setlength{\itemsep}{1pt}
-%   \setlength{\parskip}{1.5pt}
-
-%   \scriptsize{
-
-%   \bibitem[1]{PyMOR}
-%   Ren{\'{e}}, M., Rave, S., and Schindler, F.
-%   \newblock pyMOR -- Generic Algorithms and Interfaces for Model Order Reduction, 2016.
-%   \newblock doi:10.1137/15m1026614.
-%   }
-% \end{thebibliography}
-
+% \printbibliography{}
+\end{pcolumn}
+\end{poster}
 \end{document}
