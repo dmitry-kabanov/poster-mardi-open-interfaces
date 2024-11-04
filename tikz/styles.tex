@@ -1,0 +1,41 @@
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, positioning, shapes.geometric}
+
+\tikzset{%
+  every path/.style={thick},
+    edge/.style={%
+        ->,
+        >={Stealth[scale=1]},
+    },
+    usercode/.style={%
+        rectangle,
+        fill=orange!80,
+        draw=black, thick,
+        minimum width=3em,
+        rounded corners=2pt,
+        text=white,
+        font=\footnotesize,
+        text centered,
+    },
+    lib/.style={%
+        ellipse,
+        fill=blue!80,
+        minimum width=.12\linewidth,
+        minimum height=.04\linewidth,
+        rounded corners=2pt,
+        text=white,
+        font=\footnotesize,
+        text centered,
+    },
+    solver/.style={%
+        rectangle,
+        fill=Green,
+        draw=black, thick, dashed,
+        text=white,
+        font=\footnotesize,
+        text centered,
+        minimum width=3em,
+        rounded corners=2pt,
+    },
+}

@@ -1,0 +1,34 @@
+\documentclass{standalone}
+\input{styles.tex}
+\begin{document}
+\begin{tikzpicture}
+	% \draw[help lines] (-2, -2) grid (5, 5);
+	\coordinate (left_side) at (-1.7, 0);
+	\coordinate (right_side) at (2, 0);
+	\coordinate (center) at (0, 0);
+
+	\node [usercode] at (left_side) (user_c) {C user};
+	\node [usercode, above=of user_c] (user_py) {Python user};
+	\node [usercode, below=of user_c] (user_jl) {Julia user};
+
+	\node [lib] at (center) (liboif) {OIF};
+
+	\node [solver] at (right_side) (solver3) {Julia solver};
+	\node [solver, above=of solver3] (solver2) {Python solver 2};
+	\node [solver, above=of solver2] (solver1) {Python solver 1};
+	\node [solver, below=of solver3] (solver4) {C solver 1};
+	\node [solver, below=of solver4] (solver5) {C solver 2};
+
+	\node at (current bounding box.north west) [anchor=north west] {\textbf{B}};
+
+	\draw[edge] (user_py) -- (liboif);
+	\draw[edge] (user_c) -- (liboif);
+	\draw[edge] (user_jl) -- (liboif);
+
+	\draw[edge] (liboif) -- (solver1.west);
+	\draw[edge] (liboif) -- (solver2.west);
+	\draw[edge] (liboif) -- (solver3.west);
+	\draw[edge] (liboif) -- (solver4.west);
+	\draw[edge] (liboif) -- (solver5.west);
+\end{tikzpicture}
+\end{document}

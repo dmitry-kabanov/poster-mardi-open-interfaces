@@ -7,7 +7,6 @@
 
 \usepackage{lipsum}
 \usepackage{blindtext}
-\usepackage{tikz}
 \usepackage{amsmath}
 \usepackage{derivative}
 \usepackage{hyperref}
@@ -19,6 +18,12 @@
 \usepackage{minted}
 
 \usepackage{newtxsf}
+
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, positioning, shapes.geometric}
+
+\usepackage[font=small,labelfont=bf]{caption}
 
 \title{Improving Interoperability in Scientific Computing\\via MaRDI Open Interfaces}
 \author{Dmitry I.\ Kabanov}
@@ -55,21 +60,37 @@
     \begin{pbox}
       \large
       Computational scientists often face two obstacles while conducting
-      numerical experiments.
-      First, there are several popular languages used by numerical
-      software packages as well as different preferences for a ``driving''
-      language, in which an experiment's logic is formulated.
-      Connecting different languages and packages directly requires
-      developing bindings to for these packages, which can amount
-      to a significant work.
-      Second, the programming interfaces between even packages
-      that solve the same numerical problem, have different interfaces.
-      Therefore, it requires a significant effort from a computational
-      scientist, if there is a need to switch from one numerical package
-      to another, in the flow of the computational project.
+      numerical experiments:
+      \begin{itemize}
+        \item Multiple programming languages are used for numerical solvers
+        \item Multiple solvers have different interfaces
+              for the same problem types
+      \end{itemize}
 
+      Combination of solvers, thus, could lead to significant programming effort
+      on scientist's side: \textbf{writing bindings}
+      and \textbf{adapting interfaces}.
       The goal of \OIF{} is to improve interoperability in Scientific
       Computing by alleviating these obstacles.
+
+      \includegraphics[width=0.46\columnwidth]{tikz/pairwise_bindings}
+      \hfill
+      \includegraphics[width=0.46\columnwidth]{tikz/oif_bindings}
+      \captionof{figure}{%
+        Schematic comparison of two approaches to the problem
+        of multiple languages/multiple implementations.
+        \textbf{A}~Standard pairwise bindings\quad
+        \textbf{B}~Bindings via MaRDI Open Interfaces.
+      }
+
+      Our \textbf{objectives} during the project are:
+      \begin{itemize}
+        \item Develop library that passes data between languages automatically
+        \item Develop generic interfaces for typical numerical problems
+        \item Spread information about these interfaces to encourage
+              the scientific-computing community to program against these interfaces
+      \end{itemize}
+
       Similar to software packages such as \textsc{PyMOR}~\citep{Milk2016},
       \textsc{SUNDIALS}~\citep{GardnerEtAl2022},
       or \textsc{PreCICE}~\citep{Chourdakis2022},
@@ -77,14 +98,6 @@
       different solvers, so that computational scientists would spend less time
       on connecting them together.
 
-      Our \textbf{objectives} during the project are:
-      \begin{itemize}
-        \item Develop library that passes data between languages automatically
-        \item Develop generic interfaces for typical numerical problems,
-              such as optimization or integration of differential equations
-        \item Spread information about these interfaces to encourage
-              the scientific-computing community to program against these interfaces.
-      \end{itemize}
     \end{pbox}
 
     \makesection{Software Architecture and Data Flow}
@@ -92,21 +105,21 @@
       \large
       \includegraphics[width=\columnwidth]{arch}
 
-      \textbf{User} requests an implementation of an Open Interface
-      and interacts with the implementation only via a \textbf{Gateway},
-      so that the discrepancies between different implementations in terms
-      of functions signatures and order of invocation become transparent
-      to the \textbf{User}.
+      % \textbf{User} requests an implementation of an Open Interface
+      % and interacts with the implementation only via a \textbf{Gateway},
+      % so that the discrepancies between different implementations in terms
+      % of functions signatures and order of invocation become transparent
+      % to the \textbf{User}.
 
-      The function arguments are converted from the user's language
-      to a C intermediate representation inside a \textbf{Converter}
-      that passes them further.
-      The \textbf{Dispatch} is responsible for loading an implementation
-      and its corresponding runtime (\textbf{Bridge}).
-      The \textbf{Bridge} converts data from the intermediate representation
-      to the native data types of the implementation and invokes
-      the requested function, which also occurs via \textbf{Interface},
-      that is, the implementation is invoked via an adapter.
+      % The function arguments are converted from the user's language
+      % to a C intermediate representation inside a \textbf{Converter}
+      % that passes them further.
+      % The \textbf{Dispatch} is responsible for loading an implementation
+      % and its corresponding runtime (\textbf{Bridge}).
+      % The \textbf{Bridge} converts data from the intermediate representation
+      % to the native data types of the implementation and invokes
+      % the requested function, which also occurs via \textbf{Interface},
+      % that is, the implementation is invoked via an adapter.
     \end{pbox}
       \makesection{Acknowledgments}
     \begin{pbox}
@@ -185,6 +198,16 @@
       \vspace{1em}
       \defbibheading{bibliography}{} % Remove default "References" heading.
       \printbibliography[]
+      % Chourdakis, G. et al. (2022). “preCICE v2: A sustainable and user-friendly coupling library”. In:
+      % \emph{Open Research Europe} 2, p. 51. DOI: 10.12688/openreseurope.14445.2.
+      % \vspace{0.5em}
+      % Gardner, D. J. et al. (2022). “Enabling New Flexibility in the SUNDIALS Suite of Nonlinear and
+      % Differential/Algebraic Equation Solvers”. In: \emph{ACM Transactions on Mathematical Software} 48.3,
+      % pp. 1–24. DOI: 10.1145/3539801.
+      % \vspace{0.5em}
+      % Milk, R., S. Rave, and F. Schindler (2016). “pyMOR – Generic Algorithms and Interfaces for Model
+      % Order Reduction”. In: \emph{SIAM Journal on Scientific Computing} 38.5, S194–S216.
+      % DOI: 10.1137/15m1026614.
     \end{pbox}
   \end{pcolumn}
 \end{poster}
