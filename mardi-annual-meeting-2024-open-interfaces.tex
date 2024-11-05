@@ -155,30 +155,32 @@
       \begin{align*}
          & \pdv{u}{t} + \pdv{\left( u^{2} / 2 \right)}{x} = 0,
         \quad t \in [0, 2], \quad x \in [0, 2]                 \\
-         & u(t, 0) = 0.5 - 0.25 \sin \left( \pi x \right)      \\
-         & u(t, 0) = u(t, 2)
+         & u(t, 0) = 0.5 - 0.25 \sin \left( \pi x \right) \mbox{ and }
+         u(t, 0) = u(t, 2)
       \end{align*}
-      \begin{minipage}{\dimexpr0.46\columnwidth - 2\tabcolsep}
-        \textbf{Implementations}:
+      \begin{minipage}{\dimexpr0.58\columnwidth - 2\tabcolsep}
+        \vspace{-2em}
+        \textbf{Used implementations}:
         \begin{itemize}
-          \item Sundials CVODE,\\Adams--Moulton method
-          \item \texttt{scipy.integrate.ode},\\Dormand--Prince method
-          \item \texttt{OrdinaryDiffEq},\\Tsitouras method
+          \item \textsc{Sundials CVODE},\\Adams--Moulton method
+          \item \textsc{SciPy},\\Dormand--Prince method
+          \item \textsc{OrdinaryDiffEq.jl},\\Tsitouras method
         \end{itemize}
       \end{minipage}\hfill%
-      \begin{minipage}{\dimexpr0.54\columnwidth - 2\tabcolsep}
+      \begin{minipage}{\dimexpr0.42\columnwidth - 2\tabcolsep}
         % \centering
+        \vspace{-1em}
         \includegraphics[width=\linewidth]{ivp_c_burgers_eq}
       \end{minipage}
 
-      \vspace{2em}
+      \vspace{0em}
       \textbf{User code in Python:}
       \begin{minted}[autogobble, beameroverlays, escapeinside=||]{Python}
         from oif.interfaces.ivp import IVP
         ...
 
         # `BurgersEquationProblem` is a utility user class.
-        impl = "scipy_ode"
+        impl = "scipy_ode"  # or "sundials_cvode", or "jl_diffeq"
         problem = BurgersEquationProblem(N=1001)
         s = IVP(impl)
         s.set_initial_value(problem.y0, problem.t0)
