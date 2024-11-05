@@ -7,6 +7,7 @@
 
 \usepackage{lipsum}
 \usepackage{blindtext}
+\usepackage{tcolorbox}
 \usepackage{amsmath}
 \usepackage{derivative}
 \usepackage{hyperref}
@@ -16,7 +17,6 @@
 	urlcolor=MPIblue,
 }
 \usepackage{minted}
-
 \usepackage{newtxsf}
 
 \usepackage[table]{xcolor}
@@ -83,13 +83,24 @@
         \textbf{B}~Bindings via MaRDI Open Interfaces.
       }
 
-      Our \textbf{objectives} during the project are:
-      \begin{itemize}
+      % Our \textbf{objectives} during the project are:
+      % \begin{itemize}
+      % \end{itemize}
+
+  % Objectives
+      \begin{center}
+        \begin{tcolorbox}[
+          colback=white, colframe=mardiblue, parbox=true,
+          left=1em, right=1em,
+                    before={\par\bigskip\noindent}, after={\par\bigskip},  width=\columnwidth]
+  {\Large\color{mardiblue}Objectives\medskip}
+  \begin{itemize}
         \item Develop library that passes data between languages automatically
         \item Develop generic interfaces for typical numerical problems
-        \item Spread information about these interfaces to encourage
-              the scientific-computing community to program against these interfaces
-      \end{itemize}
+        \item Encourage the community to program against these interfaces
+  \end{itemize}
+  \end{tcolorbox}
+  \end{center}
 
       Similar to software packages such as \textsc{PyMOR}~\citep{Milk2016},
       \textsc{SUNDIALS}~\citep{GardnerEtAl2022},
@@ -121,7 +132,8 @@
       % the requested function, which also occurs via \textbf{Interface},
       % that is, the implementation is invoked via an adapter.
     \end{pbox}
-      \makesection{Acknowledgments}
+
+    \makesection{Acknowledgments}
     \begin{pbox}
       \large
       The authors would like to thank for the provided funding
