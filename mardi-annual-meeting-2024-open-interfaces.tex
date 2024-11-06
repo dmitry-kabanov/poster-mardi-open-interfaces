@@ -62,14 +62,15 @@
       Computational scientists often face two obstacles while conducting
       numerical experiments:
       \begin{itemize}
-        \item Multiple programming languages are used for numerical solvers
-        \item Multiple solvers have different interfaces
+        \item \textbf{Multiple programming languages} are used
+              for numerical solvers
+        \item Multiple solvers have \textbf{different interfaces}
               for the same problem types
       \end{itemize}
 
       Combination of solvers, thus, could lead to significant programming effort
-      on scientist's side: \textbf{writing bindings}
-      and \textbf{adapting interfaces}.
+      on scientist's side:
+      writing bindings and~adapting interfaces takes time.
       \OIF{} aim to improve interoperability in Scientific
       Computing by alleviating these obstacles by replacing pairwise bindings
       between languages and implementations with decoupled bindings.
@@ -212,9 +213,9 @@
         and~\textsc{Sundials CVODE} solver and using the same solver
         via direct bindings (from Python).
 
-        \captionof{figure}{Comparison of runtimes between using the same solver
-          via \textsc{Open Interfaces} and directly.
-          Error bars are standard deviations of 30 runs.}
+        \captionof{figure}{%
+          Comparison of runtimes, averaged over 30 runs,
+          between using the same solver via \OIF{} and directly.}
       \end{minipage}
     \end{pbox}
     \makesection{Conclusions}
