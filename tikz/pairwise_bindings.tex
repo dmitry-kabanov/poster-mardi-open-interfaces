@@ -17,21 +17,21 @@
 
 	\node at (current bounding box.north west) [anchor=north west] {\textbf{A}};
 
-	\draw[edge] (user_py) -- (solver1.west);
+	\draw[edge] (user_py) -- (solver1.north west);
 	\draw[edge] (user_py) -- (solver2);
-	\draw[edge] (user_py) -- (solver3);
-	\draw[edge] (user_py) -- (solver4);
-	\draw[edge] (user_py) -- ($(solver5.north west) + (0.5, 0)$);
+	\draw[edge] (user_py) -- ($(solver3.west) - (0.0, 0)$);
+	\draw[edge] (user_py) -- (solver4.north);
+	\draw[edge] (user_py) -- ($(solver5.north west) + (0.3, 0)$);
 
-	\draw[edge] (user_c) -- (solver1.south west);
-	\draw[edge] (user_c) -- (solver2);
-	\draw[edge] (user_c) -- (solver3);
-	\draw[edge] (user_c) -- (solver4);
+	\draw[edge] (user_c) -- (solver1.west);
+	\draw[edge] (user_c) -- (solver2.south west);
+	\draw[edge] (user_c) -- ($(solver3.south west) + (0.0, 0)$);
+	\draw[edge] (user_c) -- (solver4.north west);
 	\draw[edge] (user_c) -- (solver5.north west);
 
-	\draw[edge] (user_jl) -- ($(solver1.south west) + (0.5, 0)$);
-	\draw[edge] (user_jl) -- (solver2);
-	\draw[edge] (user_jl) -- (solver3);
+	\draw[edge] (user_jl) -- ($(solver1.south west) + (0, 0)$);
+	\draw[edge] (user_jl) -- (solver2.south);
+	\draw[edge] (user_jl) -- ($(solver3.south west) + (0.3, 0)$);
 	\draw[edge] (user_jl) -- (solver4);
 	\draw[edge] (user_jl) -- (solver5.west);
 \end{tikzpicture}
