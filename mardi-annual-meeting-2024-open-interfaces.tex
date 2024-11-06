@@ -88,20 +88,20 @@
       % \begin{itemize}
       % \end{itemize}
 
-  % Objectives
+      % Objectives
       \begin{center}
         \begin{tcolorbox}[
-          colback=white, colframe=mardiblue, parbox=true,
-          left=1em, right=1em,
-                    before={\par\bigskip\noindent}, after={\par\bigskip},  width=\columnwidth]
-  {\Large\color{mardiblue}Objectives\medskip}
-  \begin{itemize}
-        \item Develop library that passes data between languages automatically
-        \item Develop generic interfaces for typical numerical problems
-        \item Encourage the community to program against these interfaces
-  \end{itemize}
-  \end{tcolorbox}
-  \end{center}
+            colback=white, colframe=mardiblue, parbox=true,
+            left=1em, right=1em,
+            before={\par\bigskip\noindent}, after={\par\bigskip},  width=\columnwidth]
+          {\Large\color{mardiblue}Objectives\medskip}
+          \begin{itemize}
+            \item Develop library that passes data between languages automatically
+            \item Develop generic interfaces for typical numerical problems
+            \item Encourage the community to program against these interfaces
+          \end{itemize}
+        \end{tcolorbox}
+      \end{center}
 
       Similar to software packages such as \textsc{PyMOR}~\citep{Milk2016},
       \textsc{SUNDIALS}~\citep{GardnerEtAl2022},
@@ -155,9 +155,9 @@
       Consider the inviscid Burgers' equation problem:
       \begin{align*}
          & \pdv{u}{t} + \pdv{\left( u^{2} / 2 \right)}{x} = 0,
-        \quad t \in [0, 2], \quad x \in [0, 2]                 \\
+        \quad t \in [0, 2], \quad x \in [0, 2]                         \\
          & u(t, 0) = 0.5 - 0.25 \sin \left( \pi x \right) \mbox{ and }
-         u(t, 0) = u(t, 2),
+        u(t, 0) = u(t, 2),
       \end{align*}
       \begin{minipage}{\dimexpr0.58\columnwidth - 2\tabcolsep}
         which we integrate in time
@@ -204,7 +204,7 @@
 
       \begin{minipage}{\dimexpr0.58\columnwidth - 2\tabcolsep}
         \centering
-      \includegraphics[width=0.8\columnwidth]{ivp_cvode_gs_performance}
+        \includegraphics[width=0.8\columnwidth]{ivp_cvode_gs_performance}
       \end{minipage}\hfill%
       \begin{minipage}{\dimexpr0.42\columnwidth - 2\tabcolsep}
         Do \OIF{} sacrifice high-performance computing? We integrate
