@@ -70,8 +70,9 @@
       Combination of solvers, thus, could lead to significant programming effort
       on scientist's side: \textbf{writing bindings}
       and \textbf{adapting interfaces}.
-      The goal of \OIF{} is to improve interoperability in Scientific
-      Computing by alleviating these obstacles.
+      \OIF{} aim to improve interoperability in Scientific
+      Computing by alleviating these obstacles by replacing pairwise bindings
+      between languages and implementations with decoupled bindings.
 
       \includegraphics[width=0.46\columnwidth]{tikz/pairwise_bindings}
       \hfill
@@ -107,7 +108,7 @@
       or \textsc{PreCICE}~\citep{Chourdakis2022},
       we aim to abstract out discrepancies between
       different solvers, so that computational scientists would spend less time
-      on connecting them together.
+      connecting them.
 
     \end{pbox}
 
@@ -223,11 +224,12 @@
       interoperability in Scientific Computing.
       Using this software package, computational scientists can connect numerical
       solvers written in different languages, without explicitly writing bindings
-      to these solvers.
+      to these solvers, enabling complex experiment workflows.
+
       Besides, the library allows switching between different implementations
-      of a numerical problem without extensive modifications of a user's code,
-      that facilitates benchmarking numerical software in terms of performance
-      and obtained results.
+      of a numerical algorithm without extensive modifications of user's code,
+      which facilitates benchmarking numerical software in terms of performance
+      and correctness.
     \end{pbox}
     \makesection{Selected References}
     \begin{pbox}
