@@ -28,8 +28,6 @@ update-bibliography:
 		$(PWD)/$(TEX_ROOT_AUX),$(PWD)/bibliography.bib \
 		$(PWD)/bibliography-external.bib
 
-tikz/pairwise_bindings.pdf : tikz/pairwise_bindings.tex
-	cd tikz/ && latexmk -pdf pairwise_bindings.tex
 
-tikz/oif_bindings.pdf : tikz/oif_bindings.tex
-	cd tikz/ && latexmk -pdf oif_bindings.tex
+tikz/%.pdf : tikz/%.tex
+	cd tikz/ && latexmk -pdf $(notdir $<) && touch $(notdir $@)
