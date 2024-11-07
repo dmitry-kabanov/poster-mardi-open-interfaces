@@ -12,6 +12,10 @@ TIKZ_PICTURES := \
 .PHONY : all
 all : $(PDF_ROOT_FILE)
 
+.PHONY : preview
+preview :
+	latexmk -pvc -pdf $(TEX_ROOT_FILE)
+
 
 .PHONY : format
 format :
