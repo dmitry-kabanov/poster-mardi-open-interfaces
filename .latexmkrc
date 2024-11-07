@@ -6,8 +6,9 @@
 # 5: xelatex, as specified by the $xelatex variable (second best)
 $pdf_mode = 1;
 
-# `set_tex_cmds` applies to all *latex commands (latex, xelatex, lualatex, ...), # so no need to specify these each. This allows to simply change `$pdf_mode`
+# `set_tex_cmds` applies to all *latex commands (latex, xelatex, lualatex, ...),
+# so no need to specify these each. This allows to simply change `$pdf_mode`
 # to get a different engine. Check if this works with `latexmk --commands`.
-set_tex_cmds("--shell-escape --synctex=1 %O %S");
+set_tex_cmds("-shell-escape -synctex=1 %O %S");
 
 $clean_ext = ("run.xml pytxcode");
