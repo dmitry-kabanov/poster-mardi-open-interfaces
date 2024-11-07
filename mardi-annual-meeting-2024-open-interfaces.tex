@@ -206,10 +206,10 @@
         \includegraphics[width=0.8\columnwidth]{ivp_cvode_gs_performance}
       \end{minipage}\hfill%
       \begin{minipage}{\dimexpr0.42\columnwidth - 2\tabcolsep}
-        Do \OIF{} sacrifice high-performance computing? We integrate
-        a 2D Gray--Scott reaction--diffusion system using \OIF{}
+        Do we sacrifice high-performance computing? \emph{No}.
+        Integration of a 2D Gray--Scott reaction--diffusion system using \OIF{}
         and~\textsc{Sundials CVODE} solver and using the same solver
-        via direct bindings (from Python).
+        via direct bindings (from Python) takes virtually the same time.
 
         \captionof{figure}{%
           Comparison of runtimes, averaged over 30 runs,
