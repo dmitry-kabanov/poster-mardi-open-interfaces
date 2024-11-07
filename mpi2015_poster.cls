@@ -385,8 +385,8 @@
 \addtolength{\colcontwidth}{-\myskip}%
 
 \newenvironment{pcolumn}
-{\hskip.5\myskip\begin{minipage}[t]{\colwidth}\setlength{\parskip}{0pt}}
-{\end{minipage}\hskip.5\myskip}
+{\hskip.3\myskip\begin{minipage}[t]{\colwidth}\setlength{\parskip}{0pt}}
+{\end{minipage}\hskip.7\myskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                pbox  
