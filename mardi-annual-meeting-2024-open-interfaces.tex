@@ -46,6 +46,22 @@
 }{%
 	\addbibresource{bibliography.bib}
 }
+% Remove fields from display
+\AtEveryBibitem{
+  \clearfield{issn}
+  \clearfield{url}
+  \clearfield{urldate}
+  \clearfield{journaltitle}
+  \clearfield{volume}
+  \clearfield{number}
+  \clearfield{pages}
+  \clearfield{publisher}
+  \clearfield{location}
+}
+% Remove "In:" string because we do not print journal titles.
+\DeclareFieldFormat[in]{title}{#1}
+\renewbibmacro{in:}{}
+\AtBeginBibliography{\small}
 
 \partnerlogos{
   \includegraphics[height=\logoheight]{logos/MaRDI_Logo_L_5_rgba_cropped.png} \hspace{3ex}
