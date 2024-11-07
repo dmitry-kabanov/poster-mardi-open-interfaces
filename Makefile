@@ -1,16 +1,16 @@
-TEX_ROOT_STEM = mardi-annual-meeting-2024-open-interfaces
-TEX_ROOT_FILE = $(TEX_ROOT_STEM).tex
-TEX_ROOT_AUX = $(TEX_ROOT_STEM).aux
+STEM := mardi-annual-meeting-2024-open-interfaces
 
-TIKZ_PIC_1 := tikz/oif_bindings.pdf
-TIKZ_PIC_2 := tikz/pairwise_bindings.pdf
-TIKZ_PICTURES := $(TIKZ_PIC_1) $(TIKZ_PIC_2)
+TEX_ROOT_AUX := $(STEM).aux
+TEX_ROOT_FILE := $(STEM).tex
+PDF_ROOT_FILE := $(STEM).pdf
+
+TIKZ_PICTURES := \
+   tikz/oif_bindings.pdf \
+   tikz/pairwise_bindings.pdf
+
 
 .PHONY : all
-all : $(TEX_ROOT_FILE)
-	latexmk -pdf $(TEX_ROOT_FILE)
-
-$(TEX_ROOT_FILE) : $(TIKZ_PICTURES)
+all : $(PDF_ROOT_FILE)
 
 
 .PHONY : format
@@ -22,12 +22,20 @@ format :
 clean :
 	latexmk -c
 
+
 .PHONY : update-bibliography
 update-bibliography:
 	jabref --nogui --aux \
 		$(PWD)/$(TEX_ROOT_AUX),$(PWD)/bibliography.bib \
 		$(PWD)/bibliography-external.bib
 
+# -----------------------------------------------------------------------------
+# Non-phony targets.
+$(PDF_ROOT_FILE) : $(TEX_ROOT_FILE)
+	latexmk -pdf $< \
+		&& touch $@
+
+$(TEX_ROOT_FILE) : $(TIKZ_PICTURES)
 
 tikz/%.pdf : tikz/%.tex
 	cd tikz/ && latexmk -pdf $(notdir $<) && touch $(notdir $@)
