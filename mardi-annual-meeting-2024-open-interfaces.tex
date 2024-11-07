@@ -61,7 +61,6 @@
 % Remove "In:" string because we do not print journal titles.
 \DeclareFieldFormat[in]{title}{#1}
 \renewbibmacro{in:}{}
-\AtBeginBibliography{\small}
 
 \partnerlogos{
   \includegraphics[height=\logoheight]{logos/MaRDI_Logo_L_5_rgba_cropped.png} \hspace{3ex}
@@ -175,12 +174,11 @@
         u(t, 0) = u(t, 2),
       \end{align*}
       \begin{minipage}{\dimexpr0.58\columnwidth - 2\tabcolsep}
-        which we integrate in time
+        which we integrate
         using an open interface
-        for Initial-Value Problems (\texttt{IVP}) for ordinary
-        differential equations.
+        for Initial-Value Problems (\texttt{IVP}) for ordinary differential
+        equations.
 
-        \vspace{0.5em}
         \captionof{figure}{%
           Solution of the Burgers' problem using open interface \texttt{IVP}
           with three implementations:
@@ -190,7 +188,8 @@
         }
       \end{minipage}\hfill%
       \begin{minipage}{\dimexpr0.42\columnwidth - 2\tabcolsep}
-        \includegraphics{ivp_c_burgers_eq}
+        \vspace{0.5em}
+        \centerline{\includegraphics[scale=1]{ivp_c_burgers_eq}}
       \end{minipage}
 
       \vspace{0.5em}
@@ -217,11 +216,11 @@
     \makesection{Performance study}
     \begin{pbox}
 
-      \begin{minipage}{\dimexpr0.58\columnwidth - 2\tabcolsep}
-        \centering
-        \includegraphics[width=0.8\columnwidth]{ivp_cvode_gs_performance}
-      \end{minipage}\hfill%
       \begin{minipage}{\dimexpr0.42\columnwidth - 2\tabcolsep}
+        \centering
+        \centerline{\includegraphics{ivp_cvode_gs_performance}}
+      \end{minipage}\hfill%
+      \begin{minipage}{\dimexpr0.58\columnwidth - 2\tabcolsep}
         Do we sacrifice high-performance computing? \emph{No}.
         Integration of a 2D Gray--Scott reaction--diffusion system using \OIF{}
         and~\textsc{Sundials CVODE} solver and using the same solver
