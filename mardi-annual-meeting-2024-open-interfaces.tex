@@ -70,6 +70,11 @@
 
 \begin{document}
 \begin{poster}
+  \begin{tikzpicture}[remember picture, overlay]
+        \node (qrcode)
+          at ($(current page.north east) - (6cm, 17cm)$)
+          {\includegraphics[scale=0.5]{assets/github-repo-qr-code}};
+  \end{tikzpicture}
   \begin{pcolumn}
     \makesection{Summary}
     \begin{pbox}
