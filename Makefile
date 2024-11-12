@@ -22,6 +22,11 @@ format :
 	latexindent --local --overwrite $(TEX_ROOT_FILE)
 
 
+.PHONY : release
+release :
+	./tag.sh && git push origin main && git push origin --tags
+
+
 .PHONY : clean
 clean :
 	latexmk -c
