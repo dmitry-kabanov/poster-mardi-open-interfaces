@@ -11,7 +11,8 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-22.04
     env:
-      PDF_FILENAME: poster-mardi-open-interfaces-${{ github.ref_name }}.pdf
+      ROOT_FILE_STEM: mardi-annual-meeting-2024-open-interfaces
+      RELEASE_FILE_NAME: poster-mardi-open-interfaces-${{ github.ref_name }}.pdf
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,13 +20,13 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: mardi-annual-meeting-2024-open-interfaces.tex
+          root_file: ${{ env.ROOT_FILE_STEM }}.tex
 
       - name: Rename PDF file
-        run: mv mardi-annual-meeting-2024-open-interfaces.pdf poster-mardi-open-interfaces-${{ github.ref_name }}.pdf
+        run: mv ${{ env.ROOT_FILE_STEM }}.pdf ${{ env.RELEASE_FILE_NAME}}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: poster-mardi-open-interfaces-${{ github.ref_name }}.pdf
+          files: ${{ env.RELEASE_FILE_NAME }}
 
